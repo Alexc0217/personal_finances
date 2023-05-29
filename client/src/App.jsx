@@ -1,9 +1,15 @@
 import Router from './Router';
+import { useTheme, ThemeProvider  } from '@mui/material/styles';
+import { lightTheme, darkTheme } from './themes'
+import CssBaseline from '@mui/material/CssBaseline';
 import './styles/reset.scss';
 
-function App() {
+const App = () => {
   return (
-    <Router />
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <Router />
+    </ThemeProvider>
   );
 }
 
