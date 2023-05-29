@@ -1,12 +1,9 @@
-import './App.scss';
+import Router from './Router';
 import './styles/reset.scss';
-import Login from './pages/profile/login/Login';
 
 function App() {
   return (
-    <div>
-      <Login />
-    </div>
+    <Router />
   );
 }
 
