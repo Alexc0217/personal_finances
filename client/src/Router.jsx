@@ -1,19 +1,21 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Auth } from './pages/index'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { LoginPage } from './pages/index'
+import React from 'react'
 
 const Router = () => {
-    return (
+  return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Auth/>} />
+                <Route path="/" element={<LoginPage/>} />
                 <Route path="*" element={
                     <div>
                         <h2>Error 404 Page not found</h2>
-                    </div>}
+                    </div>
+                    }
                 />
             </Routes>
         </BrowserRouter>
-    );
+  )
 }
 
-export default Router;
+export default Router
