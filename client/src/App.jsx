@@ -1,10 +1,16 @@
-import Router from './Router';
-import './styles/reset.scss';
+import React from 'react'
+import Router from './Router'
+import { useTheme, ThemeProvider } from '@mui/material/styles'
+import { lightTheme, darkTheme } from './themes'
+import CssBaseline from '@mui/material/CssBaseline'
 
-function App() {
+const App = () => {
   return (
-    <Router />
-  );
+      <ThemeProvider theme={darkTheme}>
+          <CssBaseline />
+          <Router />
+        </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
