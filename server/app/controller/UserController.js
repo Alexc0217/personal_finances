@@ -59,8 +59,6 @@ class UserController {
       return res.status(500).json({message: "The user email doesnt exist on our database. Create a new account."});
     }
     
-
-
     if(userExist.email === email){
       bcrypt.compare(password, userExist.password, (err, result) => {
         if(err) return res.status(404).json({message: err});
@@ -78,7 +76,6 @@ class UserController {
     }else{
       return res.status(400).json({message: "Email don't exist in our database. "});
     }
-
 
   }
 }

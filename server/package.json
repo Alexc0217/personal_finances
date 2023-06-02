@@ -12,6 +12,7 @@
     "mysql2": "^3.3.3",
     "sequelize": "^6.31.1",
     "sqlite3": "^5.1.6",
+    "supertest": "^6.3.3",
     "swagger-autogen": "^2.23.1",
     "swagger-ui-express": "^4.1.4"
   },
