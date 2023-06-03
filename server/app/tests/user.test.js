@@ -54,4 +54,11 @@ describe('Users API', () => {
       })
   })
 
+  it('Test update a user /api/user/:id', async () => {
+    await request(app).put('/api/user/18')
+      .send({email: "emailmodificado@outlook.com"})
+      .expect('Content-Type', /json/)
+      .expect(200)
+  })
+
 })
