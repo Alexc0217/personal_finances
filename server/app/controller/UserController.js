@@ -1,5 +1,5 @@
 const database = require("../../models");
-const { Op } = require("sequelize");
+const { Op, where } = require("sequelize");
 const bcrypt = require("bcrypt");
 
 
@@ -10,6 +10,17 @@ class UserController {
       return res.status(200).json(users);
     }catch(err){
       res.status(500).json(err.message);
+    }
+  }
+
+  static async findUser(req, res) {
+    const {id} = req.params;
+
+    try{
+      const user = await database.User.findByPk(id, {include: 'Account'})
+      return res.status(200).json({user});
+    }catch(err){
+      return res.status(400).json({err})
     }
   }
 
