@@ -67,7 +67,7 @@ class UserController {
       const user = await database.User.findByPk(id);
 
       await user.update(paramsToUpdate).then((result) => {
-        returnres.status(200).json({message: "success"});
+        return res.status(200).json({message: "success"});
       }).catch((err) => {
         return res.status(400).json(err);
       })
