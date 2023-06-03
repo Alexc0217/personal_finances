@@ -59,6 +59,23 @@ class UserController {
     }
   }
 
+  static async update(req, res) {
+    const {id} = req.params;
+    const paramsToUpdate = req.body;
+    
+    try{
+      const user = await database.User.findByPk(id);
+
+      await user.update(paramsToUpdate).then((result) => {
+        returnres.status(200).json({message: "success"});
+      }).catch((err) => {
+        return res.status(400).json(err);
+      })
+    }catch(err){
+      return res.status(404).json(err)
+    }
+  }
+
   static async login(req, res){
     const userParams = req.body;
     const email = userParams.email;
