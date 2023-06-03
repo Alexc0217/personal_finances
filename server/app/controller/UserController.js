@@ -18,7 +18,7 @@ class UserController {
 
     try{
       const user = await database.User.findByPk(id, {include: 'Account'})
-      return res.status(200).json({user});
+      return res.status(200).json(user);
     }catch(err){
       return res.status(400).json({err})
     }

@@ -38,20 +38,18 @@ describe('Users API', () => {
   })
 
   it('Test find a user /api/user/:id', async () => {
-    await request(app).get('/api/user/:id')
+    await request(app).get('/api/user/18')
       .expect('Content-Type', /json/)
       .expect(200)
       .then((response) => {
         expect(response.body).toEqual(
-          expect.arrayContaining([
-            expect.objectContaining({
-              fullName: expect.any(String),
-              email: expect.any(String),
-              password: expect.any(String),
-              cpf: expect.any(String),
-              Account: expect.any(Object),
-            })
-          ])
+          expect.objectContaining({
+            fullName: expect.any(String),
+            email: expect.any(String),
+            password: expect.any(String),
+            cpf: expect.any(String),
+            Account: expect.any(Object),
+          })
         )
       })
   })
