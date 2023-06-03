@@ -20,4 +20,23 @@ describe('Users API', () => {
       )
     })
   });
+
+  it('Create a User /api/users', async () => {
+    const res = await request(app).post('/api/users')
+      .send({fullName: "Alex Moura", email: "Emailteste@outlook.com", password: "AnyPassword@13", cpf: "00000000000"})
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(400)
+  })
+
+  it('Test login /api/users/login', async () => {
+    const res = await request(app).post('/api/users/login')
+      .send({email: "Emailteste@outlook.com", password: "AnyPassword@13"})
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(201)
+  })
+
+  
+
 })
