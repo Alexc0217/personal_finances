@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { LoginPage } from './pages/index';
+import { LoginPage, RegisterPage } from './pages/index';
 import React from 'react';
 
 const Router = () => {
@@ -7,6 +7,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginPage/>} />
+        <Route path="/signup" element={<RegisterPage/>} />
         <Route path="*" element={
           <div>
             <h2>Error 404 Page not found</h2>
