@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../../app");
+const app = require("../app");
 
 describe('Users API', () => {
   it('GET /api/users --> JSON Users', async () => {
