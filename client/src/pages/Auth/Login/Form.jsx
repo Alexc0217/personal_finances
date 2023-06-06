@@ -20,7 +20,7 @@ const LoginForm = () => {
     >
       <Avatar sx={{ m: 1, marginBottom: 2, bgcolor: 'primary.main' }} />
       <Typography component="h1" variant="h5">
-          Login
+          Autenticação
       </Typography>
       <Box component="form" noValidate sx={{ mt: 1 }}>
         <TextField
@@ -48,7 +48,7 @@ const LoginForm = () => {
         <Button
           type="submit"
           fullWidth
-          variant="contained"
+          variant="outlined"
           sx={{ mt: 3, mb: 2 }}
         >
             Entrar
@@ -60,7 +60,7 @@ const LoginForm = () => {
             </Link>
           </Grid>
           <Grid item>
-            <Link variant="body2">
+            <Link variant="body2" href='/signup'>
               {'Registre-se'}
             </Link>
           </Grid>
