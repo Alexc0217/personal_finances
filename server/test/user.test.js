@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../../app");
+const app = require("../app");
 
 describe('Users API', () => {
   it('GET /api/users --> JSON Users', async () => {
@@ -14,7 +14,8 @@ describe('Users API', () => {
             email: expect.any(String),
             password: expect.any(String),
             cpf: expect.any(String),
-            Account: expect.any(Object)
+            Account: expect.any(Object),
+            Boxes: expect.any(Array)
           })
         ])
       )
@@ -52,6 +53,20 @@ describe('Users API', () => {
           })
         )
       })
+  })
+
+  it('test add a value to account', async () => {
+    await request(app).post('/api/user/18/add-value')
+      .send({value: 900})
+      .expect('Content-Type', /json/)
+      .expect(200)
+  })
+
+  it('test remove a value from account', async () => {
+    await request(app).post('/api/user/18/remove-value')
+      .send({value: 900})
+      .expect('Content-Type', /json/)
+      .expect(200)
   })
 
   it('Test update a user /api/user/:id', async () => {

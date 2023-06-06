@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 class UserController {
   static async allUsers(req, res) {
     try{
-      const users = await database.User.findAll({include: 'Account'});
+      const users = await database.User.findAll({include: [{model: database.Account, include: 'Transactions'}, {model: database.Box}]});
       return res.status(200).json(users);
     }catch(err){
       res.status(500).json(err.message);
@@ -17,7 +17,7 @@ class UserController {
     const {id} = req.params;
 
     try{
-      const user = await database.User.findByPk(id, {include: 'Account'})
+      const user = await database.User.findByPk(id, {include: [{model: database.Account, include: 'Transactions'}, {model: database.Box}]})
       return res.status(200).json(user);
     }catch(err){
       return res.status(400).json({err})
@@ -75,6 +75,67 @@ class UserController {
       return res.status(404).json(err)
     }
   }
+
+  static async addValue(req, res) {
+    const {id} = req.params;
+    const value = req.body.value;
+
+    try{
+      const account = await database.Account.findOne({where: {userId: id}});
+      const newTransaction = {
+        value: value,
+        accountId: account.id,
+      }
+
+      const newTotalValue = newTransaction.value + account.totalValue;
+
+      await database.Transaction.create(newTransaction).then( async (result) => {
+        await account.update({totalValue: newTotalValue}).then((result) => {
+          return res.status(200).json({message: "success"});
+        }).catch((err) => {
+          return res.status(400).json(err);
+        })
+      }).catch((err) => {
+        return res.status(400).json(err);
+      })
+
+      
+    }catch(err){
+      return res.status(404).json(err)
+    }
+
+  }
+
+  static async removeValue(req, res) {
+    const {id} = req.params;
+    const value = req.body.value;
+
+    try{
+      const account = await database.Account.findOne({where: {userId: id}});
+      const newTransaction = {
+        value: -value,
+        accountId: account.id,
+      }
+
+      const newTotalValue = account.totalValue + newTransaction.value;
+
+      await database.Transaction.create(newTransaction).then( async (result) => {
+        await account.update({totalValue: newTotalValue}).then((result) => {
+          return res.status(200).json({message: "success"});
+        }).catch((err) => {
+          return res.status(400).json(err);
+        })
+      }).catch((err) => {
+        return res.status(400).json(err);
+      })
+
+      
+    }catch(err){
+      return res.status(404).json(err)
+    }
+
+  }
+
 
   static async login(req, res){
     const userParams = req.body;

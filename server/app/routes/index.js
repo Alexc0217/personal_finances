@@ -1,5 +1,6 @@
 const bodyParser = require("body-parser");
 const users = require("./user");
+const boxes = require("./box");
 const defaults = require("./default");
 const express = require('express');
 const router = express.Router();
@@ -14,4 +15,5 @@ module.exports = app => {
   app.use(cors());
   app.use(defaults);
   app.use(users);
+  app.use(boxes);
 }
