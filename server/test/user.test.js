@@ -55,6 +55,20 @@ describe('Users API', () => {
       })
   })
 
+  it('test add a value to account', async () => {
+    await request(app).post('/api/user/18/add-value')
+      .send({value: 900})
+      .expect('Content-Type', /json/)
+      .expect(200)
+  })
+
+  it('test remove a value from account', async () => {
+    await request(app).post('/api/user/18/remove-value')
+      .send({value: 900})
+      .expect('Content-Type', /json/)
+      .expect(200)
+  })
+
   it('Test update a user /api/user/:id', async () => {
     await request(app).put('/api/user/18')
       .send({email: "emailmodificado@outlook.com"})
