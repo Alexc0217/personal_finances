@@ -28,6 +28,8 @@
         "linebreak-style": "off",
         "quotes": "off",
         "object-curly-spacing": "off",
-        "no-unused-vars": "off"
+        "no-unused-vars": "off",
+        "semi": "off",
+        "indent": "off"
       }
 }
