@@ -17,7 +17,7 @@ class UserController {
     const {id} = req.params;
 
     try{
-      const user = await database.User.findByPk(id, {include: 'Account'})
+      const user = await database.User.findByPk(id, {include: ['Account', 'Boxes']})
       return res.status(200).json(user);
     }catch(err){
       return res.status(400).json({err})
