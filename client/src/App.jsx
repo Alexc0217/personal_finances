@@ -1,16 +1,19 @@
-import React from 'react'
-import Router from './Router'
-import { useTheme, ThemeProvider } from '@mui/material/styles'
-import { lightTheme, darkTheme } from './themes'
-import CssBaseline from '@mui/material/CssBaseline'
+import React from 'react';
+import Router from './Router';
+import { ThemeProvider } from '@mui/material/styles';
+import { lightTheme, darkTheme } from './themes';
+import CssBaseline from '@mui/material/CssBaseline';
+import { useSelector } from "react-redux";
 
 const App = () => {
-  return (
-      <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <Router />
-        </ThemeProvider>
-  )
-}
+  const darkMode = useSelector((state) => state.theme.darkMode);
 
-export default App
+  return (
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <CssBaseline />
+      <Router />
+    </ThemeProvider>
+  );
+};
+
+export default App;

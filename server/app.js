@@ -1,11 +1,10 @@
+const routes = require("./app/routes/index.js");
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
 const express = require("express");
 const app = express();
-const port = 3001;
 
-app.get("/", (req, res) => {
-  res.json({message: "ok"});
-})
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+routes(app);
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-})
+module.exports = app;
