@@ -14,7 +14,8 @@ describe('Users API', () => {
             email: expect.any(String),
             password: expect.any(String),
             cpf: expect.any(String),
-            Account: expect.any(Object)
+            Account: expect.any(Object),
+            Boxes: expect.any(Array)
           })
         ])
       )

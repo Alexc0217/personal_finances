@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 class UserController {
   static async allUsers(req, res) {
     try{
-      const users = await database.User.findAll({include: 'Account'});
+      const users = await database.User.findAll({include: ['Account', 'Boxes']});
       return res.status(200).json(users);
     }catch(err){
       res.status(500).json(err.message);
