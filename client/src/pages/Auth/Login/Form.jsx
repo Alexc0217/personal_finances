@@ -8,8 +8,11 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+  const navigate = useNavigate()
+
   return (
     <Box
       sx={{
@@ -22,7 +25,7 @@ const LoginForm = () => {
       <Typography component="h1" variant="h5">
           Autenticação
       </Typography>
-      <Box component="form" noValidate sx={{ mt: 1 }}>
+      <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={() => navigate('/home')}>
         <TextField
           margin="normal"
           required
