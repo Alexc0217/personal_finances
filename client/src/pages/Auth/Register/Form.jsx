@@ -99,7 +99,7 @@ const RegisterForm = () => {
             Criar
         </Button>
         <Grid container>
-          <Grid item xs>
+          <Grid item xs display="flex" justifyContent="flex-end">
             <Link variant="body2" href='/'>
                 Já possui uma conta?
             </Link>
