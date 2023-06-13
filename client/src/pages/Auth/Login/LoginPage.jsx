@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import React from 'react';
 import LoginForm from './Form';
-import ThemeSwitch from '../../../components/ThemeSwitch/ThemeSwitch';
+import { ThemeSwitch } from '../../../components/index';
 import Copyright from '../Copyright/Copyright';
 
 const LoginPage = () => {

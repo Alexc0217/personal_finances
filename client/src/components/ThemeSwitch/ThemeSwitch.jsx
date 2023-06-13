@@ -5,7 +5,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { asyncToggleTheme } from "../../store/reducers/themeSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-const ThemeSwitch = () => {
+export const ThemeSwitch = () => {
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.theme.darkMode);
 
@@ -16,4 +16,3 @@ const ThemeSwitch = () => {
   );
 };
 
-export default ThemeSwitch;
