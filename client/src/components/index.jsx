@@ -1,3 +1,6 @@
 import { ThemeSwitch } from './ThemeSwitch/ThemeSwitch';
+import { Drawer } from './Drawer/Drawer';
+import { DrawerHeader } from './DrawerHeader/DrawerHeader';
+import { AppBar } from './AppBar/AppBar';
 
-export { ThemeSwitch };
+export { AppBar, ThemeSwitch, Drawer, DrawerHeader };

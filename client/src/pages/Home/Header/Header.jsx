@@ -1,18 +1,31 @@
-import { AppBar, Box, Container, IconButton, Toolbar, Typography } from '@mui/material';
+/* eslint-disable react/prop-types */
+import { Box, Container, IconButton, Toolbar, Typography } from '@mui/material';
+
 import React from 'react';
-import ThemeSwitch from '../../../components/ThemeSwitch/ThemeSwitch';
+import { ThemeSwitch, AppBar } from '../../../components/index';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+
+const Header = ({ open, setOpen }) => {
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" open={open}>
       <Toolbar>
         <Box display="flex" justifyContent="flex-start" width="50%">
-          <IconButton>
+          <IconButton color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(open && { display: 'none' }),
+            }} onClick={() => handleDrawerOpen()}>
             <MenuIcon/>
           </IconButton>
         </Box>
