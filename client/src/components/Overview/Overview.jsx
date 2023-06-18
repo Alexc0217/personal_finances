@@ -5,6 +5,9 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Container } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import ArrowCircleDownOutlinedIcon from '@mui/icons-material/ArrowCircleDownOutlined';
+import ArrowCircleUpOutlinedIcon from '@mui/icons-material/ArrowCircleUpOutlined';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
 
 export const Overview = () => {
   return (
@@ -13,9 +16,12 @@ export const Overview = () => {
         <Box display={'flex'} gap={10}>
           <Card sx={{ width: "33%" }}>
             <CardContent>
-              <Typography sx={{ mb: 1.5 }} variant="h6" component="div">
-              Entradas
-              </Typography>
+              <Box display='flex' justifyContent='space-between' sx={{ mb: 1.5 }}>
+                <Typography variant="h5" component="div">
+                  Entradas
+                </Typography>
+                <ArrowCircleUpOutlinedIcon fontSize='large' color='success'/>
+              </Box>
               <Typography variant='h4' color="text.secondary">
             R$ 0,00
               </Typography>
@@ -23,9 +29,12 @@ export const Overview = () => {
           </Card>
           <Card sx={{ width: "33%" }}>
             <CardContent>
-              <Typography sx={{ mb: 1.5 }} variant="h6" component="div">
-              Saídas
-              </Typography>
+              <Box display='flex' justifyContent='space-between' sx={{ mb: 1.5 }}>
+                <Typography variant="h5" component="div">
+                 Saídas
+                </Typography>
+                <ArrowCircleDownOutlinedIcon fontSize='large' color='error'/>
+              </Box>
               <Typography variant='h4' color="text.secondary">
             R$ 0,00
               </Typography>
@@ -33,9 +42,12 @@ export const Overview = () => {
           </Card>
           <Card sx={{ width: "33%" }}>
             <CardContent>
-              <Typography sx={{ mb: 1.5 }} variant="h6" component="div">
-              Balanço Total
-              </Typography>
+              <Box display='flex' justifyContent='space-between' sx={{ mb: 1.5 }}>
+                <Typography variant="h5" component="div">
+                  Balanço Total
+                </Typography>
+                <MonetizationOnOutlinedIcon fontSize='large'/>
+              </Box>
               <Typography variant='h4' color="text.secondary">
             R$ 0,00
               </Typography>
@@ -48,39 +60,19 @@ export const Overview = () => {
           </Typography>
           <DataGrid
             rows={[
-              { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-              { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-              { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-              { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-              { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-              { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-              { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-              { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-              { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+              { id: 1, description: 'Pagamento da Conta de Água', amount: 'R$ 100,00', date: new Date().toLocaleString() },
+              { id: 2, description: 'Pagamento da Conta de Luz', amount: 'R$ 82,00', date: new Date().toLocaleString() },
             ]}
             columns={[
-              { field: 'id', headerName: 'ID', width: 70 },
-              { field: 'firstName', headerName: 'First name', width: 130 },
-              { field: 'lastName', headerName: 'Last name', width: 130 },
-              {
-                field: 'age',
-                headerName: 'Age',
-                type: 'number',
-                width: 90,
-              },
-              {
-                field: 'fullName',
-                headerName: 'Full name',
-                description: 'This column has a value getter and is not sortable.',
-                sortable: false,
-                width: 160,
-                valueGetter: (params) =>
-                  `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-              },
+              { field: 'id', headerName: 'ID', width: 100 },
+              { field: 'description', headerName: 'Descrição', width: 300 },
+              { field: 'amount', headerName: 'Valor', width: 200 },
+              { field: 'date', headerName: 'Data', width: 200 },
             ]}
             sx={{
               border: 'none',
             }}
+            pageSizeOptions={[5, 10]}
           />
         </Box>
       </Box>
