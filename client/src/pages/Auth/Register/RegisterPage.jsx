@@ -2,8 +2,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import React from 'react';
 import RegisterForm from './Form';
-import ThemeSwitch from '../../../components/ThemeSwitch/ThemeSwitch';
-import Copyright from '../Copyright/Copyright';
+import { ThemeSwitch, Copyright } from '../../../components/index';
 
 const RegisterPage = () => {
   return (

@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import React from 'react';
 
-const Copyright = (props) => {
+export const Copyright = (props) => {
   return (
     // eslint-disable-next-line max-len
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -16,4 +16,3 @@ const Copyright = (props) => {
   );
 };
 
-export default Copyright;

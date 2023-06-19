@@ -30,6 +30,7 @@
         "object-curly-spacing": "off",
         "no-unused-vars": "off",
         "semi": "off",
-        "indent": "warn"
+        "indent": "warn",
+        "max-len": "off"
       }
 }
