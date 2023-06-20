@@ -9,9 +9,12 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setIsLoading } from '../../../store/reducers/loadingSlice';
 
 const LoginForm = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   return (
     <Box
@@ -25,7 +28,14 @@ const LoginForm = () => {
       <Typography component="h1" variant="h5">
           Autenticação
       </Typography>
-      <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={() => navigate('/home')}>
+      <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={() => {
+        // Esse trecho depende da requisição, é apenas uma amostra
+        dispatch(setIsLoading())
+        setTimeout(() => {
+          dispatch(setIsLoading())
+        }, 2000)
+        navigate('/home')
+      }}>
         <TextField
           margin="normal"
           required
