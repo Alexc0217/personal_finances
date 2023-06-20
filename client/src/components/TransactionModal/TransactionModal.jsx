@@ -11,6 +11,7 @@ import { Box } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import InputAdornment from '@mui/material/InputAdornment';
 
 export const TransactionModal = (props) => {
   return (
@@ -34,13 +35,19 @@ export const TransactionModal = (props) => {
         <Box display="flex" gap={1}>
           <TextField
             margin="dense"
-            label="Valor em R$"
+            label="Valor"
             variant="outlined"
+            defaultValue="0,00"
+            InputProps={{
+              startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+            }}
           />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker sx={{
-              marginTop: 1,
-            }}/>
+            <DatePicker
+              label="Data"
+              sx={{
+                marginTop: 1,
+              }}/>
           </LocalizationProvider>
         </Box>
       </DialogContent>
