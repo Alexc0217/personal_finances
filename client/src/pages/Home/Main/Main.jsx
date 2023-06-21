@@ -8,7 +8,7 @@ const Main = () => {
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <DrawerHeader />
       <Outlet />
-      {/* <Copyright/> */}
+      <Copyright/>
     </Box>
   );
 }
