@@ -43,8 +43,6 @@ const LoginForm = () => {
           values,
           errors,
           touched,
-          handleChange,
-          handleBlur,
           handleSubmit,
         }) => (
           <Box component='form' sx={{ mt: 1 }} onSubmit={handleSubmit}>
@@ -88,13 +86,13 @@ const LoginForm = () => {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link variant="body2">
+                <Link variant="body2" underline="hover">
                 Esqueceu sua senha?
                 </Link>
               </Grid>
               <Grid item>
-                <Link variant="body2" href='/signup'>
-                  {'Registre-se'}
+                <Link variant="body2" href='/signup' underline="hover">
+                  Registre-se
                 </Link>
               </Grid>
             </Grid>

@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify'
 
 export const useAuth = () => {
@@ -22,7 +21,7 @@ export const useAuth = () => {
         .post('http://localhost:3000/api/users', body)
         .then(() => {
           toast.success('Sua conta criada com sucesso!')
-          navigate('/signin')
+          navigate('/')
         })
         .catch(() => {
           toast.error('Ocorreu um erro ao criar a conta!')
