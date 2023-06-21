@@ -12,6 +12,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import InputAdornment from '@mui/material/InputAdornment';
+import dayjs from 'dayjs';
 
 export const TransactionModal = (props) => {
   return (
@@ -30,6 +31,7 @@ export const TransactionModal = (props) => {
             label="Descrição"
             variant="outlined"
             fullWidth
+            helperText="Um breve descritivo que simbolize a natureza da transação"
           />
         </Box>
         <Box display="flex" gap={1}>
@@ -45,6 +47,7 @@ export const TransactionModal = (props) => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Data"
+              defaultValue={dayjs(new Date().toDateString())}
               sx={{
                 marginTop: 1,
               }}/>
