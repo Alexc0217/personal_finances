@@ -8,8 +8,15 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useAuth } from '../../../hooks/useAuth/useAuth';
+import { setIsLoading } from '../../../store/reducers/loadingSlice';
+import { Formik, Field } from 'formik';
+import { useDispatch } from 'react-redux';
 
 const RegisterForm = () => {
+  const dispatch = useDispatch()
+  const { register } = useAuth()
+
   return (
     <Box
       sx={{
@@ -22,90 +29,146 @@ const RegisterForm = () => {
       <Typography component="h1" variant="h5">
           Cadastro
       </Typography>
-      <Box component="form" sx={{ mt: 1 }}>
-        <Grid container spacing={1} columns={16}>
-          <Grid item display="flex" gap={2}>
-            <TextField
-              margin="normal"
-              required
+      <Formik
+        initialValues={{
+          "fullName": "",
+          "cpf": "",
+          "email": '',
+          "confirm-email": '',
+          "password": '',
+          "confirm-password": '' }}
+        onSubmit={(e) => {
+          dispatch(setIsLoading())
+          register({
+            fullName: e.fullName,
+            cpf: e.cpf,
+            email: e.email,
+            password: e.password,
+          }).finally(() => dispatch(setIsLoading()))
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleSubmit,
+        }) => (
+          <Box
+            component="form"
+            sx={{ mt: 1 }}
+            onSubmit={handleSubmit}
+          >
+            <Grid
+              container
+              spacing={1}
+              columns={16}
+            >
+              <Grid item display="flex" gap={2}>
+                <Field name="fullName">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      margin="normal"
+                      fullWidth
+                      label="Nome Completo"
+                      autoComplete="name"
+                      autoFocus
+                    />
+                  )}
+                </Field>
+                <Field name="cpf">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      margin="normal"
+                      fullWidth
+                      label="CPF"
+                      autoComplete="cpf"
+                      autoFocus
+                    />
+                  )}
+                </Field>
+              </Grid>
+              <Grid item display="flex" gap={2}>
+                <Field name="email">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      margin="normal"
+                      required
+                      fullWidth
+                      label="E-mail"
+                      type="email"
+                      autoComplete="email"
+                    />
+                  )}
+                </Field>
+                <Field name="email-confirm">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      margin="normal"
+                      required
+                      fullWidth
+                      label="Confirmar E-mail"
+                      type="email"
+                    />
+                  )}
+                </Field>
+              </Grid>
+              <Grid item display="flex" gap={2}>
+                <Field name="password">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Senha"
+                      type="password"
+                    />
+                  )}
+                </Field>
+                <Field name="password-confirm">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      margin="normal"
+                      required
+                      fullWidth
+                      label="Confirmar Senha"
+                      type="password"
+                    />
+                  )}
+                </Field>
+              </Grid>
+            </Grid>
+            {/* <FormControlLabel
+              control={<Checkbox value="remember" required color="primary" sx={{
+                marginLeft: '5px',
+              }} />}
+              label="Você concorda com as nossas condições?"
+              labelPlacement='start'
+            /> */}
+            <Button
+              type="submit"
               fullWidth
-              label="Nome Completo"
-              name="name"
-              autoComplete="name"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="CPF"
-              name="id"
-              autoComplete="cpf"
-              autoFocus
-            />
-          </Grid>
-          <Grid item display="flex" gap={2}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="email"
-              label="E-mail"
-              type="email"
-              autoComplete="email"
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="email-confirm"
-              label="Confirmar E-mail"
-              type="email"
-            />
-          </Grid>
-          <Grid item display="flex" gap={2}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Senha"
-              type="password"
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password-confirm"
-              label="Confirmar Senha"
-              type="password"
-            />
-          </Grid>
-
-        </Grid>
-        <FormControlLabel
-          control={<Checkbox value="remember" required color="primary" sx={{
-            marginLeft: '5px',
-          }} />}
-          label="Você concorda com as nossas condições?"
-          labelPlacement='start'
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="outlined"
-          sx={{ mt: 3, mb: 2 }}
-        >
+              variant="outlined"
+              sx={{ mt: 3, mb: 2 }}
+            >
             Criar
-        </Button>
-        <Grid container>
-          <Grid item xs display="flex" justifyContent="flex-end">
-            <Link variant="body2" href='/'>
+            </Button>
+            <Grid container>
+              <Grid item xs display="flex" justifyContent="flex-end">
+                <Link variant="body2" href='/' underline="hover">
                 Já possui uma conta?
-            </Link>
-          </Grid>
-        </Grid>
-      </Box>
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        )}
+      </Formik>
     </Box>
   );
 };
