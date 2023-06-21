@@ -11,10 +11,13 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setIsLoading } from '../../../store/reducers/loadingSlice';
+import { useAuth } from '../../../hooks/useAuth/useAuth';
+import { Formik, Field } from 'formik';
 
 const LoginForm = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { login } = useAuth()
 
   return (
     <Box
@@ -28,57 +31,76 @@ const LoginForm = () => {
       <Typography component="h1" variant="h5">
           Autenticação
       </Typography>
-      <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={() => {
-        // Esse trecho depende da requisição, é apenas uma amostra
-        dispatch(setIsLoading())
-        setTimeout(() => {
+
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        onSubmit={(e) => {
           dispatch(setIsLoading())
-        }, 2000)
-        navigate('/home')
-      }}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          label="Usuário"
-          name="user"
-          autoComplete="user"
-          autoFocus
-        />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Senha"
-          type="password"
-          autoComplete="current-password"
-        />
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Lembrar senha"
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="outlined"
-          sx={{ mt: 3, mb: 2 }}
-        >
+          login(e).finally(() => dispatch(setIsLoading()))
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+        }) => (
+          <Box component='form' sx={{ mt: 1 }} onSubmit={handleSubmit}>
+            <Field name="email">
+              {({ field, form, meta }) => (
+                <TextField
+                  {...field}
+                  margin="normal"
+                  required
+                  fullWidth
+                  label="E-mail"
+                  autoComplete="email"
+                  autoFocus
+                />
+              )}
+            </Field>
+            <Field name="password">
+              {({ field, form, meta }) => (
+                <TextField
+                  {...field}
+                  margin="normal"
+                  required
+                  fullWidth
+                  label="Senha"
+                  type="password"
+                  autoComplete="current-password"
+                />
+              )}
+            </Field>
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Lembrar senha"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="outlined"
+              sx={{ mt: 3, mb: 2 }}
+            >
             Entrar
-        </Button>
-        <Grid container>
-          <Grid item xs>
-            <Link variant="body2">
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link variant="body2">
                 Esqueceu sua senha?
-            </Link>
-          </Grid>
-          <Grid item>
-            <Link variant="body2" href='/signup'>
-              {'Registre-se'}
-            </Link>
-          </Grid>
-        </Grid>
-      </Box>
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link variant="body2" href='/signup'>
+                  {'Registre-se'}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        )}
+      </Formik>
     </Box>
   );
 };

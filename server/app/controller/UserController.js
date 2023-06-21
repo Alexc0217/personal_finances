@@ -144,11 +144,11 @@ class UserController {
 
     const userExist = await database.User.findOne({where: {email: userParams.email}});
 
-    if(userExist.length < 1){
+    if(userExist?.length < 1){
       return res.status(500).json({message: "The user email doesnt exist on our database. Create a new account."});
     }
     
-    if(userExist.email === email){
+    if(userExist?.email === email){
       bcrypt.compare(password, userExist.password, (err, result) => {
         if(err) return res.status(404).json({message: err});
         
