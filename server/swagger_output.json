@@ -134,6 +134,9 @@
               "properties": {
                 "value": {
                   "example": "any"
+                },
+                "description": {
+                  "example": "any"
                 }
               }
             }

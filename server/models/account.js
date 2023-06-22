@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Account.init({
-    totalValue: DataTypes.BIGINT,
+    totalValue: DataTypes.DOUBLE,
     userId: DataTypes.INTEGER,
   }, {
     sequelize,

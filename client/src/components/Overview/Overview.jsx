@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -11,8 +11,12 @@ import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlin
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { TransactionModal } from '../TransactionModal/TransactionModal';
+import { useTransactions } from '../../hooks/useTransactions/useTransactions';
+import { useSelector } from "react-redux";
+import useAccount from '../../hooks/useAccount/useAccount'
 
 export const Overview = () => {
+  const { data } = useAccount(localStorage.getItem('userId'))
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -29,7 +33,8 @@ export const Overview = () => {
                   <ArrowCircleUpOutlinedIcon fontSize='large' color='success'/>
                 </Box>
                 <Typography variant='h4' color="text.secondary">
-            R$ 0,00
+                  {data ? `R$ ${data.stats?.Account?.Transactions.map((e) => e.value > 0 && e.value).reduce((accumulator, currentValue) => accumulator + currentValue,
+                      0).toFixed(2).replace('.', ',')}` : "-"}
                 </Typography>
               </CardContent>
             </Card>
@@ -42,7 +47,8 @@ export const Overview = () => {
                   <ArrowCircleDownOutlinedIcon fontSize='large' color='error'/>
                 </Box>
                 <Typography variant='h4' color="text.secondary">
-            R$ 0,00
+                  {data ? `R$ ${data.stats?.Account?.Transactions.map((e) => e.value < 0 && e.value).reduce((accumulator, currentValue) => accumulator + currentValue,
+                      0).toFixed(2).replace('.', ',')}` : "-"}
                 </Typography>
               </CardContent>
             </Card>
@@ -55,7 +61,7 @@ export const Overview = () => {
                   <MonetizationOnOutlinedIcon fontSize='large'/>
                 </Box>
                 <Typography variant='h4' color="text.secondary">
-            R$ 0,00
+                  {data ? `R$ ${data.stats?.Account?.totalValue.toFixed(2).replace('.', ',')}` : "-"}
                 </Typography>
               </CardContent>
             </Card>
@@ -67,15 +73,12 @@ export const Overview = () => {
             Nova transação
             </Button>
             <DataGrid
-              rows={[
-                { id: 1, description: 'Pagamento da Conta de Água', amount: 'R$ 100,00', date: new Date().toLocaleString() },
-                { id: 2, description: 'Pagamento da Conta de Luz', amount: 'R$ 82,00', date: new Date().toLocaleString() },
-              ]}
+              rows={data ? data.transactions : []}
               columns={[
                 { field: 'id', headerName: 'ID', width: 100 },
                 { field: 'description', headerName: 'Descrição', width: 350 },
-                { field: 'amount', headerName: 'Valor', width: 200 },
-                { field: 'date', headerName: 'Data', width: 200 },
+                { field: 'value', headerName: 'Valor', width: 200 },
+                { field: 'createdAt', headerName: 'Data', width: 200 },
               ]}
               sx={{
                 border: 'none',
