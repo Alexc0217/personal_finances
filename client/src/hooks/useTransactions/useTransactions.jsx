@@ -19,8 +19,11 @@ export const useTransactions = () => {
         break;
       case 'withdrawal':
         await axios
-            .post(`http://localhost:3000/api/user/${data.id}/remove-value`)
-            .then(() => toast.success('Transação criada com sucesso!'))
+            .post(`http://localhost:3000/api/user/${data.id}/remove-value`, {
+              value: data.value,
+              transactionId: data.transactionId,
+            })
+            .then(() => toast.success('Transação removida com sucesso!'))
             .catch(() => toast.error('Ocorreu um erro ao criar uma transação! '))
         break;
       case 'change':
