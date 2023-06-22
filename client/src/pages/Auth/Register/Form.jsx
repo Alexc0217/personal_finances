@@ -27,7 +27,7 @@ const RegisterForm = () => {
     >
       <Avatar sx={{ m: 1, marginBottom: 2, bgcolor: 'primary.main' }} />
       <Typography component="h1" variant="h5">
-          Cadastro
+          Registro
       </Typography>
       <Formik
         initialValues={{

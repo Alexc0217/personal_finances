@@ -29,7 +29,7 @@ const LoginForm = () => {
     >
       <Avatar sx={{ m: 1, marginBottom: 2, bgcolor: 'primary.main' }} />
       <Typography component="h1" variant="h5">
-          Autenticação
+          Entrar
       </Typography>
 
       <Formik
@@ -85,12 +85,12 @@ const LoginForm = () => {
             Entrar
             </Button>
             <Grid container>
-              <Grid item xs>
+              {/* <Grid item xs>
                 <Link variant="body2" underline="hover">
                 Esqueceu sua senha?
                 </Link>
-              </Grid>
-              <Grid item>
+              </Grid> */}
+              <Grid item xs display="flex" justifyContent="flex-end">
                 <Link variant="body2" href='/signup' underline="hover">
                   Registre-se
                 </Link>
