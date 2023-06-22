@@ -33,7 +33,7 @@ export const Overview = () => {
                   <ArrowCircleUpOutlinedIcon fontSize='large' color='success'/>
                 </Box>
                 <Typography variant='h4' color="text.secondary">
-                  {data ? `R$ ${data.stats?.Account?.Transactions.map((e) => e.value).reduce((accumulator, currentValue) => accumulator + currentValue,
+                  {data ? `R$ ${data.stats?.Account?.Transactions.map((e) => e.value > 0 && e.value).reduce((accumulator, currentValue) => accumulator + currentValue,
                       0).toFixed(2).replace('.', ',')}` : "-"}
                 </Typography>
               </CardContent>
