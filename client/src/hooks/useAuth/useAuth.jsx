@@ -9,12 +9,18 @@ export const useAuth = () => {
   const login = async (body) => {
     await axios
         .post('http://localhost:3000/api/users/login', body)
-        .then((response) => response.status === 201 && navigate('/home'))
+        .then((response) => {
+          localStorage.setItem("userId", response.data.userId)
+          navigate('/index')
+        })
         .catch(() => {
           toast.error('Ocorreu um erro ao realizar a autenticação!')
         })
   }
-  const logout = () => navigate('/')
+  const logout = () => {
+    localStorage.removeItem("userId");
+    navigate('/')
+  }
 
   const register = async (body) => {
     await axios

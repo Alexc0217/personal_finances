@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux';
+import { setAccountStats } from '../../store/reducers/accountSlice';
 
 export const useTransactions = () => {
+  const dispatch = useDispatch()
+
   const newTransaction = async (data) => {
     switch (data.type) {
       case 'deposit':
         await axios
-            .post(`http://localhost:3000/api/user/${data.id}/add-value`)
+            .post(`http://localhost:3000/api/user/${data.id}/add-value`, {
+              value: data.value, description: data.description,
+            })
             .then(() => toast.success('Transação criada com sucesso!'))
             .catch(() => toast.error('Ocorreu um erro ao criar uma transação! '))
         break;
@@ -23,12 +29,6 @@ export const useTransactions = () => {
         return
     }
   }
-  const accountStats = async (id) => {
-    await axios
-        .get(`http://localhost:3000/api/user/${id}`)
-        .then((response) => response.data)
-        .catch((error) => toast.error('Não foi possível carregar os dados da conta!'))
-  }
-  return { newTransaction, accountStats };
+  return { newTransaction };
 }
 

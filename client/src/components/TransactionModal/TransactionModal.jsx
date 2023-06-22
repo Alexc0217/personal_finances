@@ -13,51 +13,80 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import InputAdornment from '@mui/material/InputAdornment';
 import dayjs from 'dayjs';
+import { Formik, Field } from 'formik';
+import { useTransactions } from '../../hooks/useTransactions/useTransactions';
 
 export const TransactionModal = (props) => {
+  const { newTransaction } = useTransactions()
+
   return (
     <Dialog
       open={props.isOpen}
       onClose={() => props.setIsOpen(false)}
     >
-      <DialogTitle>Nova Transação</DialogTitle>
-      <DialogContent sx={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
-        <Box>
-          <TextField
-            margin="dense"
-            label="Descrição"
-            variant="outlined"
-            fullWidth
-            helperText="Um breve descritivo que simbolize a natureza da transação"
-          />
-        </Box>
-        <Box display="flex" gap={1}>
-          <TextField
-            margin="dense"
-            label="Valor"
-            variant="outlined"
-            defaultValue="0,00"
-            InputProps={{
-              startAdornment: <InputAdornment position="start">R$</InputAdornment>,
-            }}
-          />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="Data"
-              defaultValue={dayjs(new Date().toDateString())}
-              sx={{
-                marginTop: 1,
-              }}/>
-          </LocalizationProvider>
-        </Box>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => props.setIsOpen(false)}>Cancelar</Button>
-        <Button>Criar</Button>
-      </DialogActions>
+      <Formik
+        initialValues={{
+          description: '',
+          value: '',
+        }}
+        onSubmit={(e) => {
+          newTransaction({
+            type: 'deposit',
+            id: localStorage.getItem('userId'),
+            description: e.description,
+            value: e.value,
+          })
+          props.setIsOpen(false);
+        }}
+      >
+        {({
+          handleSubmit,
+        } ) => (
+          <Box component="form" onSubmit={handleSubmit}>
+            <DialogTitle>Nova Transação</DialogTitle>
+            <DialogContent>
+              <Box display='flex' gap={2}>
+                <Field name="description">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      sx={{
+                        width: '65%',
+                      }}
+                      margin="dense"
+                      label="Descrição"
+                      variant="outlined"
+                      helperText="Especifique a natureza da transação"
+                    />
+                  )}
+                </Field>
+                <Field name="value">
+                  {({ field }) => (
+                    <TextField
+                      {...field}
+                      sx={{
+                        width: '35%',
+                      }}
+                      helperText="Valor da Transação"
+                      margin="dense"
+                      label="Valor"
+                      variant="outlined"
+                      defaultValue="0,00"
+                      InputProps={{
+                        startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+                      }}
+                    />
+                  )}
+                </Field>
+              </Box>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => props.setIsOpen(false)}>Cancelar</Button>
+              <Button type='submit'>Criar</Button>
+            </DialogActions>
+          </Box>
+        )}
+      </Formik>
     </Dialog>
   );
 }
