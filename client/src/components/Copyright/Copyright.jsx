@@ -8,7 +8,7 @@ export const Copyright = (props) => {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="#">
-          Personal Finances
+          Finance Friend
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
