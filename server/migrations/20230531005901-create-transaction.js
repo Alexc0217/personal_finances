@@ -10,7 +10,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       value: {
-        type: Sequelize.BIGINT
+        type: Sequelize.DOUBLE
+      },
+      description: {
+        type: Sequelize.STRING
       },
       accountId: {
         allowNull: false,

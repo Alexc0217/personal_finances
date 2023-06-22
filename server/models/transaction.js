@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Transaction.init({
-    value: DataTypes.BIGINT
+    value: DataTypes.DOUBLE,
+    description: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Transaction',

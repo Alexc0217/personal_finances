@@ -8,9 +8,12 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../../hooks/useAuth/useAuth';
 
 
 const Header = ({ open, setOpen }) => {
+  const { logout } = useAuth()
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -32,16 +35,11 @@ const Header = ({ open, setOpen }) => {
         <Box display="flex" justifyContent="flex-end" width="50%">
           <ThemeSwitch/>
           <IconButton>
-            <NotificationsIcon/>
-          </IconButton>
-          <IconButton>
             <AccountCircle/>
           </IconButton>
-          <Link to="/">
-            <IconButton>
-              <LogoutIcon/>
-            </IconButton>
-          </Link>
+          <IconButton onClick={() => logout()}>
+            <LogoutIcon/>
+          </IconButton>
         </Box>
       </Toolbar>
     </AppBar>

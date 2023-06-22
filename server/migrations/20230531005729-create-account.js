@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       totalValue: {
-        type: Sequelize.BIGINT
+        type: Sequelize.DOUBLE
       },
       userId: {
         allowNull: false,

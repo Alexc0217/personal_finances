@@ -36,7 +36,7 @@ class UserController {
       ],
     }})
         
-    if(userExist.length > 0){
+    if(userExist?.length > 0){
       return res.status(400).json({message: "User EMAIL or CPF already on our database. Please try another."});
     }
 
@@ -78,13 +78,14 @@ class UserController {
 
   static async addValue(req, res) {
     const {id} = req.params;
-    const value = req.body.value;
+    const value = parseFloat(req.body.value?.replace(',', '.'));
 
     try{
       const account = await database.Account.findOne({where: {userId: id}});
       const newTransaction = {
         value: value,
         accountId: account.id,
+        description: req.body.description,
       }
 
       const newTotalValue = newTransaction.value + account.totalValue;
@@ -143,6 +144,8 @@ class UserController {
     const password = userParams.password;
 
     const userExist = await database.User.findOne({where: {email: userParams.email}});
+    const user = await database.User.findOne({ where: { email: email
+    }})
 
     if(userExist?.length < 1){
       return res.status(500).json({message: "The user email doesnt exist on our database. Create a new account."});
@@ -154,7 +157,10 @@ class UserController {
         
         if(result){
           try{
-            return res.status(201).json({message: "success"});
+            return res.status(201).json({
+              message: "success",
+              userId: user.id,
+            });
           }catch(err){
             console.log(err);
           }
