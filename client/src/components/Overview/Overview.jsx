@@ -14,10 +14,17 @@ import { TransactionModal } from '../TransactionModal/TransactionModal';
 import { useTransactions } from '../../hooks/useTransactions/useTransactions';
 import { useSelector } from "react-redux";
 import useAccount from '../../hooks/useAccount/useAccount'
+import { IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const Overview = () => {
-  const { data } = useAccount(localStorage.getItem('userId'))
+  const { newTransaction } = useTransactions()
+  const { data, fetch } = useAccount()
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    fetch()
+  }, [isOpen])
 
   return (
     <>
@@ -75,10 +82,25 @@ export const Overview = () => {
             <DataGrid
               rows={data ? data.transactions : []}
               columns={[
+                { field: 'actions', headerName: 'Ações', width: 75, disableColumnMenu: true, sortable: false, renderCell: (params) =>{
+                  return (
+                    <IconButton onClick={() => {
+                      newTransaction({
+                        type: 'withdrawal',
+                        id: localStorage.getItem('userId'),
+                        transactionId: params.row.id,
+                        value: parseFloat(params.row.value?.replace('R$', '').replace(',', '.').replace(' ', '')),
+                      }).then(() => fetch())
+                    }
+                    }>
+                      <DeleteIcon/>
+                    </IconButton>
+                  )
+                } },
                 { field: 'id', headerName: 'ID', width: 100 },
-                { field: 'description', headerName: 'Descrição', width: 350 },
+                { field: 'description', headerName: 'Descrição', width: 350, sortable: false },
                 { field: 'value', headerName: 'Valor', width: 200 },
-                { field: 'createdAt', headerName: 'Data', width: 200 },
+                { field: 'createdAt', headerName: 'Data', width: 100 },
               ]}
               sx={{
                 border: 'none',

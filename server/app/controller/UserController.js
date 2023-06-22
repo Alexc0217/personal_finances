@@ -120,13 +120,14 @@ class UserController {
 
       const newTotalValue = account.totalValue + newTransaction.value;
 
-      await database.Transaction.create(newTransaction).then( async (result) => {
+      await database.Transaction.destroy({where: { accountId: newTransaction.accountId, id: req.body.transactionId}}).then( async (result) => {
         await account.update({totalValue: newTotalValue}).then((result) => {
           return res.status(200).json({message: "success"});
         }).catch((err) => {
           return res.status(400).json(err);
         })
       }).catch((err) => {
+        console.log(err);
         return res.status(400).json(err);
       })
 
