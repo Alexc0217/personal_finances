@@ -9,6 +9,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth/useAuth';
+import Tooltip from '@mui/material/Tooltip';
 
 
 const Header = ({ open, setOpen }) => {
@@ -34,9 +35,11 @@ const Header = ({ open, setOpen }) => {
         </Box>
         <Box display="flex" justifyContent="flex-end" width="50%">
           <ThemeSwitch/>
-          <IconButton>
-            <AccountCircle/>
-          </IconButton>
+          <Tooltip title={'Bem vindo!'}>
+            <IconButton>
+              <AccountCircle/>
+            </IconButton>
+          </Tooltip>
           <IconButton onClick={() => logout()}>
             <LogoutIcon/>
           </IconButton>

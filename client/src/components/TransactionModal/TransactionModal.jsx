@@ -53,6 +53,7 @@ export const TransactionModal = (props) => {
                       sx={{
                         width: '65%',
                       }}
+                      required
                       margin="dense"
                       label="Descrição"
                       variant="outlined"
@@ -69,6 +70,7 @@ export const TransactionModal = (props) => {
                       }}
                       helperText="Valor da Transação"
                       margin="dense"
+                      required
                       label="Valor"
                       variant="outlined"
                       defaultValue="0,00"
